@@ -21,6 +21,11 @@ linter(
     config_str = "--in-place --string-style d --comment-style s",
 )
 
+linter(
+    name = "swift",
+    executable = "@swiftformat",
+)
+
 RUBY_LINTER_OPTS = " ".join([
     "--auto-correct", # Need to activate 'in-place' editing mode
     "--cache false",  # Rubocop's caching does not work with Bazel, and isn't necessary

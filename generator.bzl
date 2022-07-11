@@ -11,7 +11,8 @@ SUPPORTED_LANGUAGES = [
     "ruby",
     "rust",
     "cc",
-    "java"
+    "java",
+    "swift"
 ]
 
 # Aspects that accept parameters cannot be called on the command line.
@@ -42,6 +43,8 @@ def _select_linter(ctx):
         linter =  ctx.attr._cc_linter
     elif kind in ["java_library", "java_binary", "java_test"]:
         linter =  ctx.attr._java_linter
+    elif kind in ["swift_library", "swift_binary"]:
+        linter = ctx.attr._swift_linter
     else:
         linter = None
 
@@ -230,6 +233,9 @@ def linting_aspect_generator(
             ),
             '_java_linter' : attr.label(
                 default = linters_map["java"],
+            ),
+            '_swift_linter' : attr.label(
+                default = linters_map["swift"],
             ),
         },
     )
